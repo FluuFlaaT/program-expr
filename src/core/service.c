@@ -7,7 +7,6 @@ void addCard()
 {
     struct document New;
     New = cardInfoRead();
-    toggleMainMenu();
 }
 
 void queryCard(){

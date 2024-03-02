@@ -5,7 +5,10 @@
 int main()
 {
     printf("hello\n");
-    toggleMainMenu();
-    selectMenu();
+    while(1)
+    {
+        toggleMainMenu();
+        selectMenu();
+    }
     return 0;
 }

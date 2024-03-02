@@ -5,7 +5,7 @@
 document cardInfoRead()
 {
     struct document New;
-    printf("请输入卡号 <长度为1 ~ 18>： ");
+    printf("\n请输入卡号 <长度为1 ~ 18>： ");
     scanf("%s", New.cardNumber);
 
     printf("\n请输入密码 <长度为1 ~ 8>： ");
