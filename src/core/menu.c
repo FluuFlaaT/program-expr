@@ -25,20 +25,21 @@ void selectMenu()
 {
     char * selection;
     selection = malloc(sizeof(char) * 100);
-    scanf("&s", selection);
-    if(selection == "1") addCard();
-    else if(selection == "2") queryCard();
-    else if(selection == "3") online();
-    else if(selection == "4") offline();
-    else if(selection == "5") charge();
-    else if(selection == "6") chargeBack();
-    else if(selection == "7") querySummary();
-    else if(selection == "8") deleteCard();
-    else if(selection == "0") exit(0);
+    scanf("%s", selection);
+    *selection++;
+    if(strcmp("1", selection)) addCard();
+    else if(strcmp("2", selection)) queryCard();
+    else if(strcmp("3", selection)) online();
+    else if(strcmp("4", selection)) offline();
+    else if(strcmp(selection , "5")) charge();
+    else if(strcmp(selection, "6")) chargeBack();
+    else if(strcmp(selection, "7")) querySummary();
+    else if(strcmp(selection, "8")) deleteCard();
+    else if(strcmp(selection, "0")) exit(0);
     else 
     {
         printf("输入的菜单序号有误！\n");
         toggleMainMenu();
     }
-    free(selection);
+    free(*selection);
 }

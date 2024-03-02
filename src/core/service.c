@@ -1,14 +1,15 @@
 #include "menu.h"
 #include <string.h>
 #include <stdlib.h>
-#include "service.h"
+#include "card_service.c"
 
 void addCard()
 {
-    document New;
-    printf("请输入卡号 <长度为1 ~ 18>: ");
-    scanf("%d", & New.cardnumber);
+    struct document New;
+    New = cardInfoRead();
+    toggleMainMenu();
 }
+
 void queryCard(){
 
 }
