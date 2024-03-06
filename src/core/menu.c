@@ -1,7 +1,7 @@
 #include "menu.h"
 #include <string.h>
 #include <stdlib.h>
-#include "service.c"
+#include "../include/menu.h"
 
 void toggleMainMenu()
 {

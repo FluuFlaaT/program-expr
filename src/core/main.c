@@ -1,6 +1,6 @@
-#include "main.h"
+#include "../include/main.h"
 #include <stdio.h>
-#include "menu.c"
+#include "../include/menu.h"
 
 int main()
 {

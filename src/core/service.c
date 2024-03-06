@@ -1,7 +1,7 @@
 #include "menu.h"
 #include <string.h>
 #include <stdlib.h>
-#include "card_service.c"
+#include "../include/card_service.h"
 
 void addCard()
 {
