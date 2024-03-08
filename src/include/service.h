@@ -4,7 +4,7 @@ typedef struct document{
     int balance;
 }document;
 
-void addCard();
+void addCard(char[]);
 
 void queryCard();
 

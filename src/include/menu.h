@@ -1,2 +1,2 @@
 void toggleMainMenu();
-void selectMenu();
+void selectMenu(char[]);

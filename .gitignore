@@ -1,8 +1,9 @@
-build/
-.vscode/
 *
 !/**/
 !*.*
 CMake*
 A.Record_Of_Each_Week/
 cmake_install.cmake
+build/*
+storage.txt
+.vscode/

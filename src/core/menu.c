@@ -1,6 +1,7 @@
 #include "menu.h"
 #include <string.h>
 #include <stdlib.h>
+#include "stdio.h"
 #include "../include/menu.h"
 
 void toggleMainMenu()
@@ -21,12 +22,12 @@ void toggleMainMenu()
     printf("请选择菜单项编号（0 ～ 8）：");
 }
 
-void selectMenu()
+void selectMenu(char filename[])
 {
     char * selection;
     selection = malloc(sizeof(char) * 100);
     scanf("%s", selection);
-    if(!strcmp("1", selection)) addCard();
+    if(!strcmp("1", selection)) addCard(filename);
     else if(!strcmp("2", selection)) queryCard();
     else if(!strcmp("3", selection)) online();
     else if(!strcmp("4", selection)) offline();

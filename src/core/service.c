@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include "../include/card_service.h"
 
-void addCard()
+void addCard(char filename[])
 {
     struct document New;
-    New = cardInfoRead();
+    cardAddNSave(filename);
 }
 
 void queryCard(){

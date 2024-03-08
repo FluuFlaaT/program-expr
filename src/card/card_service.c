@@ -1,6 +1,7 @@
 #include <string.h>
-#include "../include/service.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include "../include/card_file.h"
 
 document cardInfoRead()
 {
@@ -16,4 +17,11 @@ document cardInfoRead()
 
     printf("\n创建成功！\n");
     return New;
+}
+
+void cardAddNSave(char filename[])
+{
+    document New;
+    New = cardInfoRead();
+    addCardToFile(New, filename);
 }

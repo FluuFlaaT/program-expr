@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/src/include",
-                "${workspaceFolder}/src/card/"
+                "${workspaceFolder}/src/card/",
+                "${workspaceFolder}/src/core"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

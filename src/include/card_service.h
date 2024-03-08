@@ -4,3 +4,7 @@
 #endif
 
 document cardInfoRead();
+
+int cardStorage();
+
+void cardAddNSave(char filename[]);
