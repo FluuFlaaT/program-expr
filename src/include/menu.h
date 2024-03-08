@@ -1,0 +1,2 @@
+void toggleMainMenu();
+void selectMenu();

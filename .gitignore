@@ -3,3 +3,6 @@ build/
 *
 !/**/
 !*.*
+CMake*
+A.Record_Of_Each_Week/
+cmake_install.cmake
