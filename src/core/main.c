@@ -1,4 +1,3 @@
-#include "../include/main.h"
 #include <stdio.h>
 #include "../include/menu.h"
 

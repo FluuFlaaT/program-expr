@@ -1,4 +1,8 @@
-#include "menu.h"
+#ifndef _SERVICE
+#define _SERVICE
+#include "../include/service.h"
+#endif
+
 #include <string.h>
 #include <stdlib.h>
 #include "stdio.h"
@@ -28,7 +32,7 @@ void selectMenu(char filename[])
     selection = malloc(sizeof(char) * 100);
     scanf("%s", selection);
     if(!strcmp("1", selection)) addCard(filename);
-    else if(!strcmp("2", selection)) queryCard();
+    else if(!strcmp("2", selection)) queryCard(filename);
     else if(!strcmp("3", selection)) online();
     else if(!strcmp("4", selection)) offline();
     else if(!strcmp(selection , "5")) charge();

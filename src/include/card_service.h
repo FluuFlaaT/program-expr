@@ -8,3 +8,7 @@ document cardInfoRead();
 int cardStorage();
 
 void cardAddNSave(char filename[]);
+
+document * cardQuery(char number[], char filename[]);
+
+void updateOperation(document *Card);

@@ -1,16 +1,20 @@
 #include "menu.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "../include/card_service.h"
 
 void addCard(char filename[])
 {
-    struct document New;
     cardAddNSave(filename);
 }
 
-void queryCard(){
-
+void queryCard(char filename[]){
+    char a[20]={};
+    printf("欲查询卡号：");
+    scanf("%s", &a);
+    
+    cardQuery(a, filename);
 }
 
 void online(){
