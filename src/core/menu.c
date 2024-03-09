@@ -2,6 +2,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include "../include/menu.h"
+#include "../include/card_service.h"
+
+#ifndef _GLOBAL
+#define _GLOBAL
+#include "../include/global.h"
+#endif
+document Card[1000];
+int latest = 0;
 
 void toggleMainMenu()
 {
@@ -26,8 +34,8 @@ void selectMenu()
     char * selection;
     selection = malloc(sizeof(char) * 100);
     scanf("%s", selection);
-    if(!strcmp("1", selection)) addCard();
-    else if(!strcmp("2", selection)) queryCard();
+    if(!strcmp("1", selection)) addCard(Card, &latest);
+    else if(!strcmp("2", selection)) queryCard(Card, latest);
     else if(!strcmp("3", selection)) online();
     else if(!strcmp("4", selection)) offline();
     else if(!strcmp(selection , "5")) charge();

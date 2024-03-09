@@ -1,12 +1,10 @@
-typedef struct document{
-    char cardNumber[20];
-    char password[10];
-    int balance;
-}document;
+#ifndef _GLOBAL
+#define _GLOBAL
+#include "../include/global.h"
+#endif
+void addCard(document[], int *);
 
-void addCard();
-
-void queryCard();
+void queryCard(document[], int);
 
 void online();
 
