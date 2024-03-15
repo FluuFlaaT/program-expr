@@ -16,7 +16,11 @@ void addCard(document Card[], int * latest)
     New.usedTime = 0;
     New.summary = 0;
     enterNumber(&New);
-    if(!New.Flag_Illegal)
+    if(checkIfExist(Card, New.cardNumber, *latest))
+    {
+        printf("卡号重复！\n");
+    }
+    else if(!New.Flag_Illegal)
     {
         Card[*latest] = New;
         *latest += 1;
@@ -32,14 +36,24 @@ void queryCard(document Card[], int latest){
     char Input[100];
     printf("请输入该卡的卡号：");
     scanf("%s", Input);
-    printf("\n");
-
-    for(int i = 0; i < latest; i++)
+    //printf("\n");
+    if(strlen(Input) > 18)
     {
-        if(!strcmp(Card[i].cardNumber, Input))
+        printf("卡片长度非法！\n");
+    }
+    else if(!checkIfExist(Card, Input, latest))
+    {
+        printf("卡号不存在！\n");
+    }
+    else
+    {
+        for(int i = 0; i < latest; i++)
         {
-            printf("%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "卡号","状态","余额","累计使用","使用次数","上次使用时间");
-            printf("%-10s\t%-10d\t%-10d\t%-10d\t%-10d\t%d-%d-%d %d:%d:%d\n", Card[i].cardNumber, Card[i].Flag_Illegal, Card[i].balance, Card[i].summary, Card[i].usedTime, Card[i].date.Year, Card[i].date.Month, Card[i].date.Day, Card[i].date.Hour, Card[i].date.Minute, Card[i].date.Second);
+            if(!strcmp(Card[i].cardNumber, Input))
+            {
+                printf("%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "卡号","状态","余额","累计使用","使用次数","上次使用时间");
+                printf("%-10s\t%-10d\t%-10d\t%-10d\t%-10d\t%d-%d-%d %d:%d:%d\n", Card[i].cardNumber, Card[i].Flag_Illegal, Card[i].balance, Card[i].summary, Card[i].usedTime, Card[i].date.Year, Card[i].date.Month, Card[i].date.Day, Card[i].date.Hour, Card[i].date.Minute, Card[i].date.Second);
+            }
         }
     }
 }
@@ -66,4 +80,14 @@ void querySummary(){
 
 void deleteCard(){
 
+}
+
+// 1 == Exist, 0 == Not exist
+int checkIfExist(document Card[], char Input[], int latest)
+{
+    for(int i = 0; i < latest; i++)
+    {
+        if(!strcmp(Card[i].cardNumber, Input)) return 1;
+    }
+    return 0;
 }

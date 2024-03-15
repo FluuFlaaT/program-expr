@@ -17,3 +17,5 @@ void chargeBack();
 void querySummary();
 
 void deleteCard();
+
+int checkIfExist(document[], char[], int);

@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "menu.h": "c",
-        "card_service.h": "c"
+        "card_service.h": "c",
+        "global.h": "c"
     },
     "cmake.configureOnOpen": false
 }
