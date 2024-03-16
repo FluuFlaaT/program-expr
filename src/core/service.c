@@ -1,6 +1,7 @@
 #include "menu.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "../include/card_service.h"
 
 #ifndef _GLOBAL
@@ -90,4 +91,25 @@ int checkIfExist(document Card[], char Input[], int latest)
         if(!strcmp(Card[i].cardNumber, Input)) return 1;
     }
     return 0;
+}
+
+void loadCardFromFile(document Card[], FILE * fp, int * latest)
+{
+    int i = 0;
+    while(fscanf(fp, "%[^##]##%[^##]##%d##%d##%d##%d##%d##%d##%d##%d##%d##%d\n", Card[i].cardNumber, Card[i].password, &Card[i].balance, &Card[i].Flag_Illegal, &Card[i].summary, &Card[i].usedTime, &Card[i].date.Year, &Card[i].date.Month, &Card[i].date.Day, &Card[i].date.Hour, &Card[i].date.Minute, &Card[i].date.Second) == 12)
+    {
+        i++;
+    }
+    *latest = i;
+}
+
+void writeBackToFile(document Card[], char filename[], int * latest)
+{
+    FILE * fp = fopen(filename, "w");
+
+    for(int i = 0; i < *latest; i++)
+    {
+        fprintf(fp, "%s##%s##%d##%d##%d##%d##%d##%d##%d##%d##%d##%d", Card[i].cardNumber, Card[i].password, Card[i].balance, Card[i].Flag_Illegal, Card[i].summary, Card[i].usedTime, Card[i].date.Year, Card[i].date.Month, Card[i].date.Day, Card[i].date.Hour, Card[i].date.Minute, Card[i].date.Second);
+    }
+    fclose(fp);
 }

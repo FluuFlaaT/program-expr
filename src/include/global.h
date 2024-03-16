@@ -18,3 +18,5 @@ typedef struct document{
     int usedTime;
     
 }document;
+
+extern char filename[20];

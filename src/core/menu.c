@@ -1,6 +1,7 @@
 #include "menu.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "../include/menu.h"
 #include "../include/card_service.h"
 
@@ -10,6 +11,7 @@
 #endif
 document Card[1000];
 int latest = 0;
+extern char filename[20];
 
 void toggleMainMenu()
 {
@@ -31,10 +33,25 @@ void toggleMainMenu()
 
 void selectMenu()
 {
+    FILE * fp = fopen(filename, "r");
+    if(fp == NULL)
+    {
+        printf("本地卡信息不存在！\n");
+    }
+    else
+    {
+        loadCardFromFile(Card, fp, &latest);
+    }
+    fclose(fp);
+
     char * selection;
     selection = malloc(sizeof(char) * 100);
     scanf("%s", selection);
-    if(!strcmp("1", selection)) addCard(Card, &latest);
+    if(!strcmp("1", selection))
+    {
+        addCard(Card, &latest);
+        writeBackToFile(Card, filename, &latest);
+    } 
     else if(!strcmp("2", selection)) queryCard(Card, latest);
     else if(!strcmp("3", selection)) online();
     else if(!strcmp("4", selection)) offline();

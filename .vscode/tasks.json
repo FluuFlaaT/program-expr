@@ -10,6 +10,7 @@
                 "${fileDirname}/main.c",
                 "${fileDirname}/menu.c",
                 "${fileDirname}/service.c",
+                "${fileDirname}/global.c",
                 "${fileDirname}/../card/card_service.c",
                 "-o",
                 "${fileDirname}/main",
