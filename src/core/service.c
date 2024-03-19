@@ -9,6 +9,8 @@
 #include "../include/global.h"
 #endif
 
+extern int ifSaveInBinary;
+
 
 void addCard(document Card[], int * latest)
 {
@@ -105,11 +107,11 @@ void loadCardFromFile(document Card[], FILE * fp, int * latest)
 
 void writeBackToFile(document Card[], char filename[], int * latest)
 {
-    FILE * fp = fopen(filename, "w");
+    FILE * fp = fopen(filename, ifSaveInBinary?"wb":"w");
 
     for(int i = 0; i < *latest; i++)
     {
-        fprintf(fp, "%s##%s##%d##%d##%d##%d##%d##%d##%d##%d##%d##%d", Card[i].cardNumber, Card[i].password, Card[i].balance, Card[i].Flag_Illegal, Card[i].summary, Card[i].usedTime, Card[i].date.Year, Card[i].date.Month, Card[i].date.Day, Card[i].date.Hour, Card[i].date.Minute, Card[i].date.Second);
+        fprintf(fp, "%s##%s##%d##%d##%d##%d##%d##%d##%d##%d##%d##%d\n", Card[i].cardNumber, Card[i].password, Card[i].balance, Card[i].Flag_Illegal, Card[i].summary, Card[i].usedTime, Card[i].date.Year, Card[i].date.Month, Card[i].date.Day, Card[i].date.Hour, Card[i].date.Minute, Card[i].date.Second);
     }
     fclose(fp);
 }

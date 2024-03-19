@@ -20,3 +20,5 @@ typedef struct document{
 }document;
 
 extern char filename[20];
+
+extern int ifSaveInBinary;

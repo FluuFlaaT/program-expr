@@ -33,7 +33,7 @@ void toggleMainMenu()
 
 void selectMenu()
 {
-    FILE * fp = fopen(filename, "r");
+    FILE * fp = fopen(filename, ifSaveInBinary?"ab":"a+");
     if(fp == NULL)
     {
         printf("本地卡信息不存在！\n");
