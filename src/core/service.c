@@ -55,7 +55,7 @@ void queryCard(document Card[], int latest){
             if(!strcmp(Card[i].cardNumber, Input))
             {
                 printf("%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "卡号","状态","余额","累计使用","使用次数","上次使用时间");
-                printf("%-10s\t%-10d\t%-10d\t%-10d\t%-10d\t%d-%d-%d %d:%d:%d\n", Card[i].cardNumber, Card[i].Flag_Illegal, Card[i].balance, Card[i].summary, Card[i].usedTime, Card[i].date.Year, Card[i].date.Month, Card[i].date.Day, Card[i].date.Hour, Card[i].date.Minute, Card[i].date.Second);
+                printf("%-10s\t%-10d\t%-10d\t%-10d\t%-10d\t%d-%d-%d %02d:%02d:%02d\n", Card[i].cardNumber, Card[i].Flag_Illegal, Card[i].balance, Card[i].summary, Card[i].usedTime, Card[i].date.Year, Card[i].date.Month, Card[i].date.Day, Card[i].date.Hour, Card[i].date.Minute, Card[i].date.Second);
             }
         }
     }
