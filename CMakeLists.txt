@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 2.8...3.13)
+project(netcafe_manager)
+
+set(CMAKE_CXX_STANDARD 17)
+
+add_executable(netcafe_manager src/core/main.c src/core/menu.c src/core/service.c src/core/global.c )
+
+add_subdirectory(./src/card)
+
+target_link_libraries(netcafe_manager CardFunction)
