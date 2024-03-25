@@ -1,14 +1,15 @@
-#include "../include/main.h"
 #include <stdio.h>
-#include "../include/menu.h"
+#include "menu.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 #ifndef _DOCUMENT
 #define _DOCUMENT
-#include "../include/global.h"
+#include "global.h"
 #endif
 
+extern cardList Card;
+extern cardList TAIL;
 int main()
 {
     printf("hello\n");

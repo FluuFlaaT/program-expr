@@ -3,7 +3,7 @@
 
 #ifndef _DOCUMENT
 #define _DOCUMENT
-#include "../include/global.h"
+#include "global.h"
 #endif
 
 cardList Card;

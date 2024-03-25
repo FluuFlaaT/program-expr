@@ -1,10 +1,10 @@
 #include <string.h>
-#include "../include/service.h"
+#include "service.h"
 #include <stdlib.h>
 #include <time.h>
 #ifndef _DOCUMENT
 #define _DOCUMENT
-#include "../include/global.h"
+#include "global.h"
 #endif
 
 
