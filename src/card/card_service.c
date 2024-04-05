@@ -1,6 +1,7 @@
 #include <string.h>
 #include "service.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 #ifndef _DOCUMENT
 #define _DOCUMENT
@@ -43,14 +44,16 @@ void enterPassword(document * CARD)
 void enterAmount(document * CARD)
 {
     printf("请输入金额： ");
-    scanf("%d", &CARD->balance);
+    scanf("%f", &CARD->balance);
 
     if(CARD->balance < 0)
     {
         printf("金额非法！\n");
         CARD->Flag_Illegal = 1;
     }else{
-        CARD->summary += CARD->balance;
+        CARD->summary = CARD->balance;
+        CARD->nStatus = 1;
+        CARD->nDel = 0;
         updateOperation(CARD);
     }
 }
@@ -67,6 +70,7 @@ void updateOperation(document *Card)
     Card->date.Minute = now_t.tm_min;
     Card->date.Second = now_t.tm_sec;
 
+    Card->date.timestamp = (unsigned long)time(NULL);
 }
 
 int checkIfExist(cardList Card, document * New)

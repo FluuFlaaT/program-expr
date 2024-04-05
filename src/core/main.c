@@ -2,6 +2,8 @@
 #include "menu.h"
 #include <stdio.h>
 #include <stdlib.h>
+#pragma once
+#include "card_file.h"
 
 #ifndef _DOCUMENT
 #define _DOCUMENT
@@ -18,6 +20,7 @@ int main()
     TAIL = Card;
     while(1)
     {
+        loadCard();
         toggleMainMenu();
         selectMenu();
     }
