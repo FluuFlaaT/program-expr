@@ -1,4 +1,5 @@
 #include "menu.h"
+#include <math.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -144,7 +145,66 @@ void online(){
 }
 
 void offline(){
-    
+    // Require cardNumber and password
+    document * cardToBeOffline = malloc(sizeof(document));
+    printf("========== 下机 ==========\n");
+    printf("请输入下机卡号（长度为1~18）：");
+    scanf("%s", cardToBeOffline->cardNumber);
+    printf("请输入下机密码（长度为1~8）：");
+    scanf("%s", cardToBeOffline->password);
+    long timestamp;
+    float amount = 0;
+
+    // Find card
+    int flag = checkIfExist(Card, cardToBeOffline, 1, 1);
+    printf("---------- 下机信息如下 ----------\n");
+
+    // If found && nStatus == 0, start offline process
+    if(flag)
+    {
+        // Export card
+        cardToBeOffline = findExactCard(cardToBeOffline);
+
+        // Calculate amount
+        long int timenow = (long int)time(NULL);
+        timestamp = cardToBeOffline->date.timestamp;
+        amount = ((int)((timenow - cardToBeOffline->date.timestamp) / 60.0) + ((timenow - cardToBeOffline->date.timestamp) % 60 )? 1 : 0) * amountPerMinute;
+
+        // If amount is enough to pay
+        if(amount > cardToBeOffline->balance) flag = 0;
+        else
+        {
+            cardToBeOffline->nStatus = 1;
+            cardToBeOffline->balance -= amount;
+            cardToBeOffline->usedTime++;
+            updateOperation(cardToBeOffline);
+            if(debugFlag) printf("nStatus = 1, Timestamp changed.\n");
+        }
+    }
+    // Else, printf ERROR
+    if(flag == 0) printf("下机失败！\n");
+    else
+    {
+        Billing * toBeSavedBilling = malloc(sizeof(Billing));
+        for(int i = 0; i < 20; i++)
+        {
+            toBeSavedBilling->cardNumber[i] = cardToBeOffline->cardNumber[i];
+        }
+        toBeSavedBilling = findExactBilling(toBeSavedBilling);
+        printf("下机成功！\n");
+        printf("%-10s\t%-10s\t%-10s\t%-10s\n", "卡号", "余额", "消费" , "下机时间");
+        printf("%-10s\t%-10.1f\t%-10.1f\t%d-%d-%d %02d:%02d:%02d\n", cardToBeOffline->cardNumber, cardToBeOffline->balance, amount , cardToBeOffline->date.Year, cardToBeOffline->date.Month, cardToBeOffline->date.Day, cardToBeOffline->date.Hour, cardToBeOffline->date.Minute, cardToBeOffline->date.Second);
+        if(toBeSavedBilling == NULL) printf("记录不存在！\n");
+        else
+        {
+            toBeSavedBilling->nStatus = 1;
+        }
+        saveBilling();
+    }
+
+    saveCard();
+    // Free and write back
+    free(cardToBeOffline);
 }
 
 void charge(){

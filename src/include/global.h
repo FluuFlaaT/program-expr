@@ -46,3 +46,5 @@ extern int debugFlag;
 
 extern BillingList BList;
 extern BillingList BListTAIL;
+
+extern float amountPerMinute;

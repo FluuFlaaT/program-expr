@@ -4,3 +4,4 @@
 #endif
 
 void InitBilling(BillingList tmp);
+Billing * findExactBilling(Billing *);

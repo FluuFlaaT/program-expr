@@ -22,7 +22,8 @@
                 "-I",
                 "${fileDirname}/",
                 "-I",
-                "${fileDirname}/../card/"
+                "${fileDirname}/../card/",
+                "-std=c99"
             ],
             "options": {
                 "cwd": "${fileDirname}"

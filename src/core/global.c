@@ -11,6 +11,7 @@ cardList TAIL;
 
 char CardFilename[100] = "card_save.txt";
 char BillingFilename[100] = "billing_save.txt";
-int debugFlag = 1;
+int debugFlag = 0;
 BillingList BList;
 BillingList BListTAIL;
+float amountPerMinute = 0.5;

@@ -97,8 +97,14 @@ int checkIfExist(cardList Card, document * New, int ifPassword, int ifOnline)
                 {
                     if(!strcmp(tmp->password, New->password))
                     {
-                        return 1;
+                        if(ifOnline)
+                        {
+                            if(tmp->nStatus == 0) return 1;
+                            else return 0;
+                        }
+                        else return 1;
                     }
+                    else return 0;
                 }
             }
         }
