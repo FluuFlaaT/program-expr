@@ -1,3 +1,5 @@
+#include <time.h>
+
 typedef struct Time
 {
     int Year;
@@ -23,7 +25,24 @@ typedef struct document{
     int nDel; // 0 -> Exist ; 1 -> Deleted
 }document, *cardList, *pointer;
 
+typedef struct Billing
+{
+    char cardNumber[20];
+
+    long int tStart;
+    long int tEnd;
+    float fAmount;
+    int nStatus;
+    int nDel;
+    int billingNum;
+    struct Billing * next;
+}Billing, *BillingList;
+
 extern cardList Card;
 extern cardList TAIL;
 extern char CardFilename[];
+extern char BillingFilename[];
 extern int debugFlag;
+
+extern BillingList BList;
+extern BillingList BListTAIL;

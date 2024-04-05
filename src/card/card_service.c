@@ -7,6 +7,7 @@
 #define _DOCUMENT
 #include "global.h"
 #endif
+#include "card_service.h"
 
 
 void enterNumber(document * CARD)
@@ -73,7 +74,8 @@ void updateOperation(document *Card)
     Card->date.timestamp = (unsigned long)time(NULL);
 }
 
-int checkIfExist(cardList Card, document * New)
+// Check if exist. Exist = 1; Not exist = 0.
+int checkIfExist(cardList Card, document * New, int ifPassword, int ifOnline)
 {
     document * tmp = Card;
     if(tmp->cardNum == 0)
@@ -87,9 +89,40 @@ int checkIfExist(cardList Card, document * New)
             tmp = tmp->next;
             if(!strcmp(tmp->cardNumber, New->cardNumber))
             {
-                return 1;
+                if(!ifPassword)
+                {
+                    return 1;
+                }
+                else
+                {
+                    if(!strcmp(tmp->password, New->password))
+                    {
+                        return 1;
+                    }
+                }
             }
         }
         return 0;
+    }
+}
+
+document * findExactCard(document * New)
+{
+    document * tmp = Card;
+    if(tmp->cardNum == 0)
+    {
+        return NULL;
+    }
+    else
+    {
+        while(tmp->next != NULL)
+        {
+            tmp = tmp->next;
+            if(!strcmp(tmp->cardNumber, New->cardNumber) && !strcmp(tmp->password, New->password))
+            {
+                return tmp;
+            }
+        }
+        return NULL;
     }
 }

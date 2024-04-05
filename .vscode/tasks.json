@@ -11,6 +11,8 @@
                 "${fileDirname}/service.c",
                 "${fileDirname}/../card/card_service.c",
                 "${fileDirname}/../card/card_file.c",
+                "${fileDirname}/../billing/billing_service.c",
+                "${fileDirname}/../billing/billing_file.c",
                 "${fileDirname}/global.c",
                 "${fileDirname}/menu.c",
                 "-o",

@@ -11,4 +11,6 @@ void enterAmount(document *);
 
 void updateOperation(document *);
 
-int checkIfExist(cardList Card, document * New);
+int checkIfExist(cardList Card, document * New, int ifPassword, int ifOnline);
+
+document * findExactCard(document * New);

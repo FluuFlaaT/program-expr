@@ -1,3 +1,8 @@
+#ifndef _DOCUMENT
+#define _DOCUMENT
+#include "global.h"
+#endif
+
 void addCard();
 
 void queryCard();
