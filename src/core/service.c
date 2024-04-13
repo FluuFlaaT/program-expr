@@ -95,7 +95,7 @@ void online(){
     if(flag)
     {
         cardToBeOnline = findExactCard(cardToBeOnline);
-        if(cardToBeOnline->nStatus == 0)
+        if(cardToBeOnline->nStatus == 1)
         {
             saveFlag = 1;
         }
@@ -103,7 +103,7 @@ void online(){
         {
             if(cardToBeOnline->balance > 0)
             {
-                cardToBeOnline->nStatus = 0;
+                cardToBeOnline->nStatus = 1;
                 updateOperation(cardToBeOnline);
                 if(debugFlag) printf("nStatus改变。更新日期。\n");
             }
@@ -156,7 +156,15 @@ void offline(){
     float amount = 0;
 
     // Find card
-    int flag = checkIfExist(Card, cardToBeOffline, 1, 1);
+    int flag = checkIfExist(Card, cardToBeOffline, 1, 0);
+    if(flag)
+    {
+        cardToBeOffline = findExactCard(cardToBeOffline);
+        if(cardToBeOffline->nStatus == 1) flag = 1;
+        else flag = 0;
+    }
+    // if(flag && cardToBeOffline->nStatus == 1) flag = 1;
+    // else flag = 0;
     printf("---------- 下机信息如下 ----------\n");
 
     // If found && nStatus == 0, start offline process
@@ -174,7 +182,7 @@ void offline(){
         if(amount > cardToBeOffline->balance) flag = 0;
         else
         {
-            cardToBeOffline->nStatus = 1;
+            cardToBeOffline->nStatus = 0;
             cardToBeOffline->balance -= amount;
             cardToBeOffline->usedTime++;
             updateOperation(cardToBeOffline);
@@ -208,11 +216,89 @@ void offline(){
 }
 
 void charge(){
+    ChargeList * tmp = malloc(sizeof(ChargeList));
 
+    document * cardToBeCharged = malloc(sizeof(document));
+    float amount;
+    printf("---------- 充值 ----------\n");
+    printf("请输入卡号：");
+    scanf("%s", cardToBeCharged->cardNumber);
+    printf("请输入密码：");
+    scanf("%s", cardToBeCharged->password);
+    printf("请输入充值金额：");
+    scanf("%f", &amount);
+    int flag1 = checkIfExist(Card, cardToBeCharged, 1, 0);
+    if(amount <= 0) flag1 = 0;
+    // int flag2 = checkIfExist(Card, cardToBeCharged, 1, 1);
+
+    // TODO: 前面的保存时判断卡片有没有被删除
+    printf("---------- 充值结果如下 ----------\n");
+    if(flag1)
+    {
+        cardToBeCharged = findExactCard(cardToBeCharged);
+        (*cardToBeCharged).balance += amount;
+        (*cardToBeCharged).summary += amount;
+        printf("%-20s\t%-10s\t%-10s\n", "卡号", "充值金额", "余额");
+        printf("%-20s\t%-10.2f\t%-10.2f\n", cardToBeCharged->cardNumber, amount, cardToBeCharged->balance);
+        tmp->data.amount = amount;
+        tmp->data.nStatus = 0;
+        tmp->data.time = time(NULL);
+        tmp->data.nDel = 0;
+        ChargeSave.next = tmp;
+    }
+    else
+    {
+        printf("充值失败！\n");
+    }
+    saveCard();
+
+    free(tmp);
+    free(cardToBeCharged);
+    
 }
 
 void chargeBack(){
+    ChargeList * tmp = malloc(sizeof(ChargeList));
 
+    document * cardToBeCharged = malloc(sizeof(document));
+    float amount;
+    printf("---------- 退费 ----------\n");
+    printf("请输入卡号：");
+    scanf("%s", cardToBeCharged->cardNumber);
+    printf("请输入密码：");
+    scanf("%s", cardToBeCharged->password);
+    printf("请输入退费金额：");
+    scanf("%f", &amount);
+    // flag1：卡片是否存在
+    int flag1 = checkIfExist(Card, cardToBeCharged, 1, 0);
+    // flag2：卡片是否正在上机
+    int flag2 = checkIfExist(Card, cardToBeCharged, 1, 1);
+    if(amount <= 0) flag1 = 0;
+
+    // TODO: 前面的保存时判断卡片有没有被删除
+    printf("---------- 充值结果如下 ----------\n");
+    if(flag1)
+    {
+        cardToBeCharged = findExactCard(cardToBeCharged);
+        if(cardToBeCharged->balance > amount)
+        (*cardToBeCharged).balance -= amount;
+        (*cardToBeCharged).summary += amount;
+        printf("%-20s\t%-10s\t%-10s\n", "卡号", "退费金额", "余额");
+        printf("%-20s\t%-10.2f\t%-10.2f\n", cardToBeCharged->cardNumber, amount, cardToBeCharged->balance);
+        tmp->data.amount = amount;
+        tmp->data.nStatus = 1;
+        tmp->data.time = time(NULL);
+        tmp->data.nDel = 0;
+        ChargeSave.next = tmp;
+    }
+    else
+    {
+        printf("退费失败！\n");
+    }
+    saveCard();
+
+    free(tmp);
+    free(cardToBeCharged);
 }
 
 void querySummary(){
@@ -220,7 +306,32 @@ void querySummary(){
 }
 
 void deleteCard(){
+    printf("---------- 注销卡片 ----------\n");
+    
+    document * tmp = malloc(sizeof(document));
+    printf("请输入注销卡卡号：");
+    scanf("%s", tmp->cardNumber);
+    printf("请输入注销卡密码：");
+    scanf("%s", tmp->password);
 
+    int flag1 = checkIfExist(Card, tmp, 1, 0);
+    int flag2 = checkIfExist(Card, tmp, 1, 1);
+
+    printf("-------- 注销信息 --------\n");
+    if(flag1 && flag2)
+    {
+        tmp = findExactCard(tmp);
+        (*tmp).nDel = 1;
+        printf("%-20s\t%-10s\n","卡号", "退款余额");
+        printf("%-20s\t%-10.2f\n", tmp->cardNumber, tmp->balance);
+    }
+    else
+    {
+        printf("注销失败！\n");
+    }
+
+    saveCard();
+    free(tmp);
 }
 
 void initialCardHead(cardList ca)

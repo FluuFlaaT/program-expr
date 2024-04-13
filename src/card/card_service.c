@@ -75,6 +75,8 @@ void updateOperation(document *Card)
 }
 
 // Check if exist. Exist = 1; Not exist = 0.
+// ifOnline = 1 : if Offline return 1, if Online return 0
+// ifOnline = 0 : DO NOT check status.
 int checkIfExist(cardList Card, document * New, int ifPassword, int ifOnline)
 {
     document * tmp = Card;

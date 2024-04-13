@@ -14,7 +14,7 @@ void saveCard()
 
     for(int i = 0; i < Card->cardNum; i++)
     {
-        fprintf(fp, "%s##%s##%f##%d##%f##%d##%d##%d##%d##%d##%d##%d##%d##%d##%d\n", here->cardNumber, here->password, here->balance, here->Flag_Illegal, here->summary, here->usedTime, here->date.Year, here->date.Month, here->date.Day, here->date.Hour, here->date.Minute, here->date.Second, here->date.timestamp, here->nDel, here->nStatus);
+        if(here->nDel == 0) fprintf(fp, "%s##%s##%f##%d##%f##%d##%d##%d##%d##%d##%d##%d##%d##%d##%d\n", here->cardNumber, here->password, here->balance, here->Flag_Illegal, here->summary, here->usedTime, here->date.Year, here->date.Month, here->date.Day, here->date.Hour, here->date.Minute, here->date.Second, here->date.timestamp, here->nDel, here->nStatus);
         here = here->next;
     }
 
