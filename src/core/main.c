@@ -5,7 +5,7 @@
 #include <service.h>
 #include "card_file.h"
 #include "billing_file.h"
-
+#include <string.h>
 
 #ifndef _DOCUMENT
 #define _DOCUMENT
@@ -16,9 +16,13 @@
 
 extern cardList Card;
 extern cardList TAIL;
-int main()
+int main(int argc, char *argv[])
 {
-    printf("hello\n");
+    if(argc > 1)
+    {
+        if(!strcmp(argv[1], "1")) debugFlag = 1;
+    }
+    if(debugFlag) printf("WARNING: debugFlag ENABLED\n");
     Card = malloc(sizeof(document));
     BList = malloc(sizeof(Billing));
     initialCardHead(Card);

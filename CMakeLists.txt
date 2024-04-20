@@ -11,4 +11,4 @@ add_subdirectory(./src/card)
 add_subdirectory(./src/core)
 add_subdirectory(./src/billing)
 
-target_link_libraries(netcafe_manager cardFunction Core billingFunction)
+target_link_libraries(netcafe_manager Card Core Billing)
