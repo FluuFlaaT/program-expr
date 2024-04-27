@@ -53,7 +53,7 @@ void enterAmount(document * CARD)
         CARD->Flag_Illegal = 1;
     }else{
         CARD->summary = CARD->balance;
-        CARD->nStatus = 1;
+        CARD->nStatus = 0;
         CARD->nDel = 0;
         updateOperation(CARD);
     }
@@ -72,6 +72,21 @@ void updateOperation(document *Card)
     Card->date.Second = now_t.tm_sec;
 
     Card->date.timestamp = (unsigned long)time(NULL);
+}
+
+void updateOperation_EXACT(Time *tmp)
+{
+    time_t now = time(0);
+    struct tm now_t = *localtime(&now);
+
+    tmp->Year = now_t.tm_year + 1900;
+    tmp->Month = now_t.tm_mon + 1;
+    tmp->Day = now_t.tm_mday;
+    tmp->Hour = now_t.tm_hour;
+    tmp->Minute = now_t.tm_min;
+    tmp->Second = now_t.tm_sec;
+
+    tmp->timestamp = (unsigned long)time(NULL);
 }
 
 // Check if exist. Exist = 1; Not exist = 0.

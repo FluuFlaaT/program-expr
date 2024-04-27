@@ -10,6 +10,7 @@ void enterPassword(document *);
 void enterAmount(document *);
 
 void updateOperation(document *);
+void updateOperation_EXACT(Time *);
 
 int checkIfExist(cardList Card, document * New, int ifPassword, int ifOnline);
 

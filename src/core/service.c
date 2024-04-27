@@ -29,6 +29,8 @@ void addCard()
     }
     else if(!New->Flag_Illegal)
     {
+        updateOperation_EXACT(&New->date_created);
+        updateOperation_EXACT(&New->date_expired);
         Card->cardNum++;
         TAIL->next = New;
         printf("========= 添加的卡信息如下 =========\n");
@@ -41,7 +43,7 @@ void addCard()
             printf("========= TAIL: 添加的卡信息如下 =========\n");
             printf("%-10s\t%-10s\t%-10s\t%-10s\n", "卡号", "密码", "状态", "金额");
             printf("%-10s\t%-10s\t%-10d\t%.2f\n", TAIL->cardNumber, TAIL->password, TAIL->Flag_Illegal, TAIL->balance);
-            printf("TimeStamp = %d\n", TAIL->date.timestamp);
+            printf("TimeStamp = %lu\n", TAIL->date.timestamp);
         }
     }
 }
@@ -69,7 +71,7 @@ void queryCard(){
             if(!strcmp(tmp->cardNumber, New->cardNumber))
             {
                 printf("%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\n", "卡号","状态","余额","累计使用","使用次数","上次使用时间");
-                printf("%-10s\t%-10d\t%-10.2f\t%-10.2f\t%-10d\t%d-%d-%d %02d:%02d:%02d\n", tmp->cardNumber, tmp->Flag_Illegal, tmp->balance, tmp->summary, tmp->usedTime, tmp->date.Year, tmp->date.Month, tmp->date.Day, tmp->date.Hour, tmp->date.Minute, tmp->date.Second);
+                printf("%-10s\t%-10d\t%-10.2f\t%-10.2f\t%-10d\t%d-%d-%d %02d:%02d:%02d\n", tmp->cardNumber, tmp->nStatus, tmp->balance, tmp->summary, tmp->usedTime, tmp->date.Year, tmp->date.Month, tmp->date.Day, tmp->date.Hour, tmp->date.Minute, tmp->date.Second);
                 break;
             }
         }
@@ -110,6 +112,7 @@ void online(){
             else
             {
                 flag = 0;
+                if(debugFlag) printf("余额不足！ flag = 0\n");
             }
         }
     }
@@ -136,6 +139,7 @@ void online(){
             BListTAIL->next = tmp;
             BListTAIL = BListTAIL->next;
             BList->billingNum++;
+            if(debugFlag) printf("Billing Num ++. Now Billing Num = %d\n", BList->billingNum);
             if(debugFlag) printf("enter savebill function.\n");
             saveBilling();
         }
@@ -240,17 +244,20 @@ void charge(){
         (*cardToBeCharged).summary += amount;
         printf("%-20s\t%-10s\t%-10s\n", "卡号", "充值金额", "余额");
         printf("%-20s\t%-10.2f\t%-10.2f\n", cardToBeCharged->cardNumber, amount, cardToBeCharged->balance);
+        strcpy(tmp->data.cardNumber, cardToBeCharged->cardNumber);
         tmp->data.amount = amount;
         tmp->data.nStatus = 0;
         tmp->data.time = time(NULL);
         tmp->data.nDel = 0;
-        ChargeSave.next = tmp;
+        ChargeSaveTAIL->next = tmp;
+        ChargeSaveTAIL = ChargeSaveTAIL->next;
     }
     else
     {
         printf("充值失败！\n");
     }
     saveCard();
+    saveChargeList();
 
     free(tmp);
     free(cardToBeCharged);
@@ -285,17 +292,20 @@ void chargeBack(){
         (*cardToBeCharged).summary += amount;
         printf("%-20s\t%-10s\t%-10s\n", "卡号", "退费金额", "余额");
         printf("%-20s\t%-10.2f\t%-10.2f\n", cardToBeCharged->cardNumber, amount, cardToBeCharged->balance);
+        strcpy(tmp->data.cardNumber, cardToBeCharged->cardNumber);
         tmp->data.amount = amount;
         tmp->data.nStatus = 1;
         tmp->data.time = time(NULL);
         tmp->data.nDel = 0;
-        ChargeSave.next = tmp;
+        ChargeSaveTAIL->next = tmp;
+        ChargeSaveTAIL = ChargeSaveTAIL->next;
     }
     else
     {
         printf("退费失败！\n");
     }
     saveCard();
+    saveChargeList();
 
     free(tmp);
     free(cardToBeCharged);

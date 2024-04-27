@@ -5,14 +5,13 @@
 #include <service.h>
 #include "card_file.h"
 #include "billing_file.h"
+#include "billing_service.h"
 #include <string.h>
 
 #ifndef _DOCUMENT
 #define _DOCUMENT
 #include "global.h"
 #endif
-
-
 
 extern cardList Card;
 extern cardList TAIL;
@@ -26,11 +25,13 @@ int main(int argc, char *argv[])
     Card = malloc(sizeof(document));
     BList = malloc(sizeof(Billing));
     initialCardHead(Card);
+    ChargeSaveTAIL = &ChargeSave;
     TAIL = Card;
     while(1)
     {
         loadCard();
         loadBilling();
+        loadChargeList();
         toggleMainMenu();
         selectMenu();
     }

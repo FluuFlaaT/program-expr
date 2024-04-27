@@ -16,13 +16,15 @@ typedef struct document{
     char cardNumber[CARD_LENGTH];
     char password[10];
     float balance;
-    Time date;
+    Time date; // Last used time
+    Time date_created; // Created time
+    Time date_expired; // Expired time
     int Flag_Illegal;
     float summary; // Summary of amount
     int usedTime;
     struct document * next;
     int cardNum;
-    int nStatus; // 0 -> Offline; 1 -> Online
+    int nStatus; // 0 -> Offline; 1 -> Online 2 -> Deleted
     int nDel; // 0 -> Exist ; 1 -> Deleted
 }document, *cardList, *pointer;
 
@@ -57,6 +59,7 @@ extern cardList Card;
 extern cardList TAIL;
 extern char CardFilename[];
 extern char BillingFilename[];
+extern char ChargeFilename[];
 extern int debugFlag;
 
 extern BillingList BList;
@@ -65,3 +68,4 @@ extern BillingList BListTAIL;
 extern float amountPerMinute;
 
 extern ChargeList ChargeSave;
+extern ChargeList * ChargeSaveTAIL;

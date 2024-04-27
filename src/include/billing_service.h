@@ -5,3 +5,5 @@
 
 void InitBilling(BillingList tmp);
 Billing * findExactBilling(Billing *);
+void saveChargeList();
+void loadChargeList();

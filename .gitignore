@@ -9,3 +9,5 @@ cmake_install.cmake
 build/
 card_save.txt
 billing_save.txt
+cmake-build-debug/
+.idea/
