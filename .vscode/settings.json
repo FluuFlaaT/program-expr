@@ -2,7 +2,9 @@
     "files.associations": {
         "menu.h": "c",
         "card_service.h": "c",
-        "global.h": "c"
+        "global.h": "c",
+        "card_file.h": "c",
+        "string.h": "c"
     },
     "cmake.configureOnOpen": false
 }

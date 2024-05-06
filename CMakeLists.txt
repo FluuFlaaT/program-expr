@@ -9,5 +9,6 @@ add_executable(netcafe_manager src/core/main.c src/core/menu.c src/core/service.
 
 add_subdirectory(./src/card)
 add_subdirectory(./src/core)
+add_subdirectory(./src/billing)
 
-target_link_libraries(netcafe_manager CardFunction Core)
+target_link_libraries(netcafe_manager Card Core Billing)
