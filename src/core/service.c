@@ -287,7 +287,7 @@ void chargeBack(){
     if(flag1)
     {
         cardToBeCharged = findExactCard(cardToBeCharged);
-        if(cardToBeCharged->balance > amount)
+        if(cardToBeCharged->balance >= amount)
         (*cardToBeCharged).balance -= amount;
         (*cardToBeCharged).summary += amount;
         printf("%-20s\t%-10s\t%-10s\n", "卡号", "退费金额", "余额");
